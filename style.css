@@ -44,16 +44,6 @@ body {
     border: 2px solid #ababab;
     border-radius: 5px;
     overflow-y: hidden;
-}
-
-#screen span:nth-child(1){
-    border-bottom: 2px solid #313131;
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-#screen span:nth-child(2){
     font-size: 1.7rem;
 }
 
