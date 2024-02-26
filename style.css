@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,500;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -34,8 +34,8 @@ body {
 
 #screen{
     display: flex;
-    justify-content: end;
-    align-items: center;
+    flex-direction: column;
+    align-items: end;
     height: 15vh;
     padding: 0.3rem 0.6rem;
     margin: 0.6rem;
@@ -43,6 +43,16 @@ body {
     background-color: #d1d1d1;
     border: 2px solid #ababab;
     border-radius: 5px;
+}
+
+#screen span:nth-child(1){
+    font-size: 1rem;
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+#screen span:nth-child(2){
+    font-size: 1.7rem;
 }
 
 #keys {
@@ -86,6 +96,11 @@ body {
 
 .operation {
     background-color: #ff8000;
+    border: 2px solid #fff;
+}
+
+.result {
+    background-color: #0f4602;
     border: 2px solid #fff;
 }
 
