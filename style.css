@@ -43,12 +43,14 @@ body {
     background-color: #d1d1d1;
     border: 2px solid #ababab;
     border-radius: 5px;
+    overflow-y: hidden;
 }
 
 #screen span:nth-child(1){
+    border-bottom: 2px solid #313131;
     font-size: 1rem;
     font-weight: 700;
-    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 #screen span:nth-child(2){
