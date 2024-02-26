@@ -38,7 +38,12 @@ function operate(var1, operator, var2){
     if (operator == '-'){ resultScreen.innerText = (+var1 - +var2)}
     if (operator == 'x'){ resultScreen.innerText = (+var1 * +var2)}
     if (operator == '/'){ resultScreen.innerText = (+var1 / +var2)}
-    //resetCalc()
+    if (resultScreen.innerText === 'Infinity'){
+        resultScreen.innerText = 'infinite value 😱'
+    } 
+    if (resultScreen.innerText === 'NaN'){
+        resultScreen.innerHTML = 'invalid operation 🤓'
+    }
 }
 
 function getNumber(){
