@@ -20,6 +20,11 @@ reset.addEventListener('click', () => {
     sessionStorage.setItem('previous_result', '')
 })
 
+// sign btn
+changeSign.addEventListener('click', () => {
+    toggleSign()
+})
+
 // equal btn 
 result.addEventListener('click', () => {
     let storedValues = getStoredValues()
@@ -77,7 +82,10 @@ function getOperator(){
             if (storedValues.operator === ''){
                 sessionStorage.setItem('operator', operator.innerText)
                 screen.innerText += operator.innerText
-            } 
+            } else {
+                sessionStorage.setItem('operator', operator.innerText)
+                screen.innerText = screen.innerText.slice(0, -1) + operator.innerText
+            }
         })
     })
 }
@@ -107,5 +115,20 @@ function eraseMessage(screen){
     }
     if (screen.innerText === 'invalid operation 🤓' ){
         screen.innerText = ''
+    }
+}
+
+function toggleSign(){
+    const storedValues = getStoredValues()
+    if (storedValues.previous_result !== ''){
+        const invertedSign = +storedValues.previous_result * -1 
+        sessionStorage.setItem('previous_result', invertedSign.toString())
+        screen.innerText = sessionStorage.getItem('previous_result')
+    } else if (storedValues.var1 !== ''){
+        const invertedSign = +storedValues.var1 * -1 
+        sessionStorage.setItem('var1', invertedSign.toString())
+        screen.innerText = sessionStorage.getItem('var1')
+    } else {
+
     }
 }
