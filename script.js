@@ -25,6 +25,11 @@ changeSign.addEventListener('click', () => {
     toggleSign()
 })
 
+// percentage btn
+percentage.addEventListener('click', () => {
+    setPercentage()
+})
+
 // equal btn 
 result.addEventListener('click', () => {
     let storedValues = getStoredValues()
@@ -129,6 +134,19 @@ function toggleSign(){
         sessionStorage.setItem('var1', invertedSign.toString())
         screen.innerText = sessionStorage.getItem('var1')
     } else {
+    }
+}
 
+function setPercentage(){
+    const storedValues = getStoredValues()
+    if (storedValues.previous_result !== ''){
+        const percentage = +storedValues.previous_result * 0.01 
+        sessionStorage.setItem('previous_result', percentage)
+        screen.innerText = sessionStorage.getItem('previous_result')
+    } else if (storedValues.var1 !== ''){
+        const percentage = +storedValues.var1 * 0.01
+        sessionStorage.setItem('var1', percentage)
+        screen.innerText = sessionStorage.getItem('var1')
+    } else {
     }
 }
