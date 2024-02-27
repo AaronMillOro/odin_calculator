@@ -22,10 +22,8 @@ reset.addEventListener('click', () => {
 
 // equal btn 
 result.addEventListener('click', () => {
-    let var1 = sessionStorage.getItem('var1')
-    let var2 = sessionStorage.getItem('var2')
-    let operator = sessionStorage.getItem('operator')
-    operate(+var1, operator, +var2)
+    let storedValues = getStoredValues()
+    operate(+storedValues.var1, storedValues.operator, +storedValues.var2)
     resetCalc() 
 })
 
@@ -41,17 +39,30 @@ function operate(var1, operator, var2){
     screen.innerText = resOperation
     sessionStorage.setItem('previous_result', resOperation)
     // check aberrant operations
-    if (screen.innerText === 'Infinity'){ screen.innerText = 'infinite value 😱' } 
-    if (screen.innerText === 'NaN'){ screen.innerText = 'invalid operation 🤓' }
+    if (screen.innerText === 'Infinity'){ 
+        screen.innerText = 'infinite value 😱' 
+        sessionStorage.setItem('previous_result', '')
+    } 
+    if (screen.innerText === 'NaN'){ 
+        screen.innerText = 'invalid operation 🤓' 
+        sessionStorage.setItem('previous_result', '')
+    }
 }
 
 function getNumber(){
     numbers.forEach(number => {
         number.addEventListener('click', () => {
-            if (sessionStorage.getItem('operator') === ''){
-                sessionStorage.setItem('var1', sessionStorage.getItem('var1') + number.innerText)
+            eraseMessage(screen)
+            const storedValues = getStoredValues()
+            if ((storedValues.previous_result !== '') && (storedValues.operator === '')){
+                sessionStorage.setItem('previous_result', storedValues.previous_result + number.innerText)
+            } else if (storedValues.previous_result !== ''){
+                sessionStorage.setItem('var1', storedValues.previous_result)
+                sessionStorage.setItem('var2', storedValues.var2 + number.innerText)
+            } else if (storedValues.operator === ''){
+                sessionStorage.setItem('var1', storedValues.var1 + number.innerText)
             } else {
-                sessionStorage.setItem('var2', sessionStorage.getItem('var2') + number.innerText)
+                sessionStorage.setItem('var2', storedValues.var2 + number.innerText)
             }
             screen.innerText += number.innerText
         })
@@ -61,7 +72,9 @@ function getNumber(){
 function getOperator(){
     operations.forEach(operator => {
         operator.addEventListener('click', () => {
-            if (sessionStorage.getItem('operator') === ''){
+            eraseMessage(screen)
+            const storedValues = getStoredValues()
+            if (storedValues.operator === ''){
                 sessionStorage.setItem('operator', operator.innerText)
                 screen.innerText += operator.innerText
             } 
@@ -73,4 +86,26 @@ function resetCalc(){
     sessionStorage.setItem('var1', '')
     sessionStorage.setItem('var2', '')
     sessionStorage.setItem('operator', '')
+}
+
+function getStoredValues(){
+    const var1 = sessionStorage.getItem('var1')
+    const var2 = sessionStorage.getItem('var2')
+    const operator = sessionStorage.getItem('operator')
+    const previous_result = sessionStorage.getItem('previous_result')
+    return  {
+        'var1': var1,
+        'var2': var2,
+        'operator': operator,
+        'previous_result': previous_result
+    }
+}
+
+function eraseMessage(screen){
+    if (screen.innerText === 'infinite value 😱'){
+        screen.innerText = ''
+    }
+    if (screen.innerText === 'invalid operation 🤓' ){
+        screen.innerText = ''
+    }
 }
